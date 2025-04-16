@@ -22,6 +22,8 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"os"
+	"strings"
 
 	yaml "gopkg.in/yaml.v2"
 
@@ -105,6 +107,12 @@ func Convert(codecs serializer.CodecFactory, inMediaType, outMediaType string, i
 		if err != nil {
 			return nil, nil, fmt.Errorf("error encoding from %s: %w", outMediaType, err)
 		}
+	} else if inMediaType == JsonMediaType && outMediaType == StorageBinaryMediaType &&
+		(typeMeta.APIVersion == "batch.volcano.sh/v1alpha1" || strings.HasPrefix(typeMeta.APIVersion, "volcano.sh/")) {
+		// Special handling for Volcano API types that don't implement protobuf marshalling
+		// Convert to JSON instead and inform the user
+		fmt.Fprintf(os.Stderr, "Warning: %s objects don't support direct protobuf encoding. Using JSON format instead.\n", typeMeta.APIVersion)
+		encoded = in
 	} else {
 		inCodec, err := newCodec(codecs, typeMeta, inMediaType)
 		if err != nil {
@@ -122,7 +130,24 @@ func Convert(codecs serializer.CodecFactory, inMediaType, outMediaType string, i
 
 		encoded, err = runtime.Encode(outCodec, obj)
 		if err != nil {
-			return nil, nil, fmt.Errorf("error encoding to %s: %w", outMediaType, err)
+			// Check if this is a protobuf marshalling error for custom resources
+			if outMediaType == StorageBinaryMediaType && strings.Contains(err.Error(), "does not implement the protobuf marshalling interface") {
+				// For custom resources that don't implement protobuf marshalling, use JSON
+				fmt.Fprintf(os.Stderr, "Warning: Object doesn't support protobuf encoding. Using JSON format instead.\n")
+
+				// Re-encode as JSON
+				jsonCodec, jsonErr := newCodec(codecs, typeMeta, JsonMediaType)
+				if jsonErr != nil {
+					return nil, nil, fmt.Errorf("failed to create JSON codec: %w", jsonErr)
+				}
+
+				encoded, jsonErr = runtime.Encode(jsonCodec, obj)
+				if jsonErr != nil {
+					return nil, nil, fmt.Errorf("failed to encode as JSON: %w", jsonErr)
+				}
+			} else {
+				return nil, nil, fmt.Errorf("error encoding to %s: %w", outMediaType, err)
+			}
 		}
 	}
 

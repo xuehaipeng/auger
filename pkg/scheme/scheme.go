@@ -72,6 +72,8 @@ import (
 	storagev1beta1 "k8s.io/api/storage/v1beta1"
 	storagemigrationv1alpha1 "k8s.io/api/storagemigration/v1alpha1"
 	"k8s.io/apimachinery/pkg/runtime"
+	volcanobatchv1alpha1 "volcano.sh/apis/pkg/apis/batch/v1alpha1"
+	notebookv1 "git-plat.tecorigin.net/ai-platform/notebook-crd/api/tecorigin.io.ai.platform/v1"
 )
 
 // AddToScheme adds all types of this clientset into the given scheme.
@@ -129,4 +131,6 @@ func AddToScheme(scheme *runtime.Scheme) {
 	_ = storagev1.AddToScheme(scheme)
 	_ = storagev1alpha1.AddToScheme(scheme)
 	_ = storagev1beta1.AddToScheme(scheme)
+	_ = volcanobatchv1alpha1.AddToScheme(scheme)
+	_ = notebookv1.AddToScheme(scheme)
 }

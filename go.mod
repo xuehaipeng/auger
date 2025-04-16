@@ -5,6 +5,7 @@ go 1.24
 toolchain go1.24.2
 
 require (
+	git-plat.tecorigin.net/ai-platform/notebook-crd v0.0.0-00010101000000-000000000000
 	github.com/google/safetext v0.0.0-20220914124124-e18e3fe012bf
 	github.com/spf13/cobra v1.9.1
 	go.etcd.io/bbolt v1.4.0
@@ -15,6 +16,7 @@ require (
 	k8s.io/api v0.31.3
 	k8s.io/apimachinery v0.32.3
 	k8s.io/client-go v0.31.3
+	volcano.sh/apis v1.7.0
 )
 
 require (
@@ -217,6 +219,7 @@ require (
 	k8s.io/utils v0.0.0-20241104100929-3ea5e8cea738 // indirect
 	mvdan.cc/gofumpt v0.7.0 // indirect
 	mvdan.cc/unparam v0.0.0-20240528143540-8a5130ca722f // indirect
+	sigs.k8s.io/controller-runtime v0.14.1 // indirect
 	sigs.k8s.io/json v0.0.0-20241010143419-9aa6b5e7a4b3 // indirect
 	sigs.k8s.io/structured-merge-diff/v4 v4.7.0 // indirect
 	sigs.k8s.io/yaml v1.4.0 // indirect
@@ -226,3 +229,5 @@ tool (
 	github.com/golangci/golangci-lint/cmd/golangci-lint
 	golang.org/x/tools/cmd/goimports
 )
+
+replace git-plat.tecorigin.net/ai-platform/notebook-crd => /Users/xuehaipeng/GolandProjects/ai-platform/notebook-crd
