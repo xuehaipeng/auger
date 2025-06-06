@@ -1,6 +1,6 @@
 module github.com/etcd-io/auger
 
-go 1.24
+go 1.24.0
 
 toolchain go1.24.2
 
@@ -13,9 +13,10 @@ require (
 	go.etcd.io/etcd/client/pkg/v3 v3.5.21
 	go.etcd.io/etcd/client/v3 v3.5.18
 	gopkg.in/yaml.v2 v2.4.0
-	k8s.io/api v0.31.3
+	k8s.io/api v0.32.3
 	k8s.io/apimachinery v0.32.3
-	k8s.io/client-go v0.31.3
+	k8s.io/client-go v0.32.3
+	sigs.k8s.io/lws v0.5.0
 	volcano.sh/apis v1.7.0
 )
 
@@ -216,10 +217,10 @@ require (
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	honnef.co/go/tools v0.6.1 // indirect
 	k8s.io/klog/v2 v2.130.1 // indirect
-	k8s.io/utils v0.0.0-20241104100929-3ea5e8cea738 // indirect
+	k8s.io/utils v0.0.0-20241210054802-24370beab758 // indirect
 	mvdan.cc/gofumpt v0.7.0 // indirect
 	mvdan.cc/unparam v0.0.0-20240528143540-8a5130ca722f // indirect
-	sigs.k8s.io/controller-runtime v0.14.1 // indirect
+	sigs.k8s.io/controller-runtime v0.20.4 // indirect
 	sigs.k8s.io/json v0.0.0-20241010143419-9aa6b5e7a4b3 // indirect
 	sigs.k8s.io/structured-merge-diff/v4 v4.7.0 // indirect
 	sigs.k8s.io/yaml v1.4.0 // indirect
