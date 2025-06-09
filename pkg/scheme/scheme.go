@@ -74,6 +74,8 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	leaderworkersetv1 "sigs.k8s.io/lws/api/leaderworkerset/v1"
 	volcanobatchv1alpha1 "volcano.sh/apis/pkg/apis/batch/v1alpha1"
+	apiextensionsv1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
+	ipamv1alpha1 "github.com/metal3-io/ip-address-manager/api/v1alpha1"
 )
 
 // AddToScheme adds all types of this clientset into the given scheme.
@@ -133,4 +135,6 @@ func AddToScheme(scheme *runtime.Scheme) {
 	_ = volcanobatchv1alpha1.AddToScheme(scheme)
 	_ = notebookv1.AddToScheme(scheme)
 	_ = leaderworkersetv1.AddToScheme(scheme)
+	_ = apiextensionsv1.AddToScheme(scheme)
+	_ = ipamv1alpha1.AddToScheme(scheme)
 }
