@@ -7,7 +7,7 @@ for file in $(ls namespaces/ | grep workspace); do
     
     # Execute the command pipeline for the current file
     cat "namespaces/$file" | auger encode | ETCDCTL_API=3 etcdctl \
-        --endpoints='https://10.8.20.3:2379,https://10.8.20.4:2379,https://10.8.20.6:2379' \
+        --endpoints='https://172.17.10.1:2379,https://172.17.10.2:2379,https://172.17.10.3:2379' \
         --cert=/etc/kubernetes/ssl/kubernetes.pem \
         --key=/etc/kubernetes/ssl/kubernetes-key.pem \
         --cacert=/etc/kubernetes/ssl/ca.pem \

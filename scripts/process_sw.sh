@@ -1,0 +1,107 @@
+
+#!/bin/bash
+
+# List of etcd keys
+etcd_keys=(
+    "/registry/configmaps/kubecube-project-20/kubeconfig"
+    "/registry/configmaps/kubecube-project-20/nbc-qtfaktwocz"
+    "/registry/configmaps/kubecube-project-20/nbc-rjuzzkxawt"
+    "/registry/configmaps/kubecube-project-20/nbc-tbfyohygsq"
+    "/registry/configmaps/kubecube-project-20/nbc-ufhjaciepo"
+    "/registry/configmaps/kubecube-project-20/nbc-xhnqwutind"
+    "/registry/deployments/kubecube-project-20/af3k8s-service"
+    "/registry/deployments/kubecube-project-20/apcc"
+    "/registry/deployments/kubecube-project-20/frontend-deployment"
+    "/registry/deployments/kubecube-project-20/llmm"
+    "/registry/deployments/kubecube-project-20/xuelu-proxy"
+    "/registry/hnc.x-k8s.io/hierarchyconfigurations/kubecube-project-20/hierarchy"
+    "/registry/hnc.x-k8s.io/subnamespaceanchors/kubecube-workspace-13/kubecube-project-20"
+    "/registry/namespaces/kubecube-project-20"
+    "/registry/resourcequotas/kubecube-project-20/hrq.hnc.x-k8s.io"
+    "/registry/rolebindings/kubecube-project-20/041a039b-5c6f-4053-a4ab-64738434b1cf-in-kubecube-tenant-7"
+    "/registry/rolebindings/kubecube-project-20/041a039b-5c6f-4053-a4ab-64738434b1cf-in-kubecube-workspace-13"
+    "/registry/rolebindings/kubecube-project-20/2a388164-0ad0-4ff6-9755-d6ddfa86c8e7-in-kubecube-tenant-7"
+    "/registry/rolebindings/kubecube-project-20/2a388164-0ad0-4ff6-9755-d6ddfa86c8e7-in-kubecube-workspace-13"
+    "/registry/rolebindings/kubecube-project-20/2a3e24c6-bae2-4614-bd89-aa21baaadca2-in-kubecube-workspace-13"
+    "/registry/rolebindings/kubecube-project-20/3d77faf1-6655-4ced-bd97-f7f031ad57ea-in-kubecube-workspace-13"
+    "/registry/rolebindings/kubecube-project-20/43113c61-ee1b-4d07-823b-c2b5ca144cfe-in-kubecube-tenant-7"
+    "/registry/rolebindings/kubecube-project-20/43113c61-ee1b-4d07-823b-c2b5ca144cfe-in-kubecube-workspace-13"
+    "/registry/rolebindings/kubecube-project-20/5850511b-8166-420c-aa1d-42d69e662f0b-in-kubecube-tenant-7"
+    "/registry/rolebindings/kubecube-project-20/63d3a547-99bd-4d7d-851d-1a28bcb8ff56-in-kubecube-tenant-7"
+    "/registry/rolebindings/kubecube-project-20/63d3a547-99bd-4d7d-851d-1a28bcb8ff56-in-kubecube-workspace-13"
+    "/registry/rolebindings/kubecube-project-20/6f7a96e9-9e54-458b-8aba-379934f963fd-in-kubecube-tenant-7"
+    "/registry/rolebindings/kubecube-project-20/6f7a96e9-9e54-458b-8aba-379934f963fd-in-kubecube-workspace-13"
+    "/registry/rolebindings/kubecube-project-20/728cdf90-0530-4e8a-95ca-8055946b7111-in-kubecube-tenant-7"
+    "/registry/rolebindings/kubecube-project-20/728cdf90-0530-4e8a-95ca-8055946b7111-in-kubecube-workspace-13"
+    "/registry/rolebindings/kubecube-project-20/7e93d922-ef30-4acb-a9de-5ceff5ed61ca-in-kubecube-tenant-7"
+    "/registry/rolebindings/kubecube-project-20/92475cd6-67ca-44b5-be7e-afb7a7a674eb-in-kubecube-workspace-13"
+    "/registry/rolebindings/kubecube-project-20/9e300d9e-3ce9-40f0-818e-64d14f25388b-in-kubecube-tenant-7"
+    "/registry/rolebindings/kubecube-project-20/9e300d9e-3ce9-40f0-818e-64d14f25388b-in-kubecube-workspace-13"
+    "/registry/rolebindings/kubecube-project-20/af60e795-4799-4ecd-863f-17e4e2841fde-in-kubecube-tenant-7"
+    "/registry/rolebindings/kubecube-project-20/ca98a70a-682d-4e39-b8e1-28a7d8b1e018-in-kubecube-tenant-7"
+    "/registry/rolebindings/kubecube-project-20/ca98a70a-682d-4e39-b8e1-28a7d8b1e018-in-kubecube-workspace-13"
+    "/registry/rolebindings/kubecube-project-20/d00e6120-f74f-4f2b-8f4f-95dcbe9a8682-in-kubecube-tenant-7"
+    "/registry/rolebindings/kubecube-project-20/f5e8364f-051e-4879-a183-0be07939e83c-in-kubecube-workspace-13"
+    "/registry/rolebindings/kubecube-project-20/tenant-sw-binding"
+    "/registry/roles/kubecube-project-20/tenant-sw-role"
+    "/registry/secrets/kubecube-project-20/default-token-wq96b"
+    "/registry/secrets/kubecube-project-20/harbor-image-pull-secret"
+    "/registry/secrets/kubecube-project-20/nb-fsihzyfcet"
+    "/registry/secrets/kubecube-project-20/nb-jznjrnugrx"
+    "/registry/secrets/kubecube-project-20/nb-qhqchxlffk"
+    "/registry/secrets/kubecube-project-20/nb-rnfxkwamun"
+    "/registry/serviceaccounts/kubecube-project-20/default"
+    "/registry/services/specs/kubecube-project-20/af3k8s-service"
+    "/registry/services/specs/kubecube-project-20/apcc-service"
+    "/registry/services/specs/kubecube-project-20/frontend-service"
+    "/registry/services/specs/kubecube-project-20/llmm"
+    "/registry/services/specs/kubecube-project-20/mongodb"
+    "/registry/services/specs/kubecube-project-20/mysql"
+    "/registry/services/specs/kubecube-project-20/nb-fsihzyfcet"
+    "/registry/services/specs/kubecube-project-20/nb-fsihzyfcet-ssh"
+    "/registry/services/specs/kubecube-project-20/nb-jznjrnugrx"
+    "/registry/services/specs/kubecube-project-20/nb-jznjrnugrx-ssh"
+    "/registry/services/specs/kubecube-project-20/nb-qhqchxlffk"
+    "/registry/services/specs/kubecube-project-20/nb-qhqchxlffk-ssh"
+    "/registry/services/specs/kubecube-project-20/nb-rnfxkwamun"
+    "/registry/services/specs/kubecube-project-20/nb-rnfxkwamun-ssh"
+    "/registry/services/specs/kubecube-project-20/nbc-qtfaktwocz"
+    "/registry/services/specs/kubecube-project-20/nbc-rjuzzkxawt"
+    "/registry/services/specs/kubecube-project-20/nbc-tbfyohygsq"
+    "/registry/services/specs/kubecube-project-20/nbc-ufhjaciepo"
+    "/registry/services/specs/kubecube-project-20/nbc-xhnqwutind"
+    "/registry/services/specs/kubecube-project-20/python-service"
+    "/registry/services/specs/kubecube-project-20/redis"
+    "/registry/services/specs/kubecube-project-20/xuelu-proxy"
+    "/registry/statefulsets/kubecube-project-20/bucket-storage"
+    "/registry/statefulsets/kubecube-project-20/mongodb"
+    "/registry/statefulsets/kubecube-project-20/mysql"
+    "/registry/statefulsets/kubecube-project-20/nb-fsihzyfcet"
+    "/registry/statefulsets/kubecube-project-20/nb-jznjrnugrx"
+    "/registry/statefulsets/kubecube-project-20/nb-qhqchxlffk"
+    "/registry/statefulsets/kubecube-project-20/nb-rnfxkwamun"
+    "/registry/statefulsets/kubecube-project-20/redis"
+    "/registry/tecorigin.io.ai.platform/notebooks/kubecube-project-20/nb-fsihzyfcet"
+    "/registry/tecorigin.io.ai.platform/notebooks/kubecube-project-20/nb-jznjrnugrx"
+    "/registry/tecorigin.io.ai.platform/notebooks/kubecube-project-20/nb-qhqchxlffk"
+    "/registry/tecorigin.io.ai.platform/notebooks/kubecube-project-20/nb-rnfxkwamun"
+)
+
+# Iterate through each key and execute the command
+for key in "${etcd_keys[@]}"; do
+    echo "Processing key: $key"
+    auger extract -f etcd-snapshot-20250809-1006.db -k "$key" | auger encode | ETCDCTL_API=3 etcdctl \
+        --endpoints='https://172.17.10.1:2379,https://172.17.10.2:2379,https://172.17.10.3:2379' \
+        --cert=/etc/kubernetes/ssl/kubernetes.pem \
+        --key=/etc/kubernetes/ssl/kubernetes-key.pem \
+        --cacert=/etc/kubernetes/ssl/ca.pem \
+        --insecure-skip-tls-verify put "$key"
+    
+    # Check if the command was successful
+    if [ $? -eq 0 ]; then
+        echo "Successfully processed key: $key"
+    else
+        echo "Failed to process key: $key"
+    fi
+    echo "----------------------------------------"
+done

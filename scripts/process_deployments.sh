@@ -21,7 +21,7 @@ for dir in kubecube-workspace-*/; do
             --cert=/etc/kubernetes/ssl/kubernetes.pem \
             --key=/etc/kubernetes/ssl/kubernetes-key.pem \
             --cacert=/etc/kubernetes/ssl/ca.pem \
-            --insecure-skip-tls-verify put "/registry/tecorigin.io.ai.platform/notebooks/$namespace/$name"
+            --insecure-skip-tls-verify put "/registry/deployments/$namespace/$name"
         
         # Optional: Print a message to confirm processing
         echo "Processed file: $file for namespace: $namespace, name: $name"
